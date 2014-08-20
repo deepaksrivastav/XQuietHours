@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="start_time_title">Start Time</string>
+    <string name="end_time_title">End Time</string>
+    <string name="quiet_hours_title_preference">XQuietHours</string>
+    <string name="app_name">XQuietHours</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="mute_sound">Mute Sound</string>
+    <string name="no_vibe">No Vibration</string>
+    <string name="no_led">No LED</string>
+    <string name="notification_settings">Notification Settings</string>
+    <string name="credits">Credits</string>
+</resources>

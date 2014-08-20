@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2014 Deepak Srivastav for XQuietHours Project 
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <SwitchPreference
+        android:key="quiet_hours_enabled"
+        android:title="@string/quiet_hours_title_preference" />
+
+    <in.isotope.xquiethours.TimeRangePreference
+        android:dependency="quiet_hours_enabled"
+        android:key="quiet_hours_timerange"
+        android:persistent="true" />
+
+    <PreferenceCategory
+        android:key="pref_notification_settings"
+        android:title="@string/notification_settings" >
+        <CheckBoxPreference
+            android:dependency="quiet_hours_enabled"
+            android:key="mute_sound"
+            android:summary="@string/mute_sound" />
+        <CheckBoxPreference
+            android:dependency="quiet_hours_enabled"
+            android:key="no_vibe"
+            android:summary="@string/no_vibe" />
+        <CheckBoxPreference
+            android:dependency="quiet_hours_enabled"
+            android:key="no_led"
+            android:summary="@string/no_led" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/credits" >
+        <PreferenceScreen
+            android:title="@string/credits" >
+            <intent android:action="in.isotope.xquiethours.CreditsActivity" />
+        </PreferenceScreen>
+    </PreferenceCategory>
+
+</PreferenceScreen>
