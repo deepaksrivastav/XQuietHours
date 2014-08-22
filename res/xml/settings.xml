@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2014 Deepak Srivastav for XQuietHours Project 
+<!--
+     Copyright (C) 2014 Deepak Srivastav for XQuietHours Project 
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -24,6 +25,17 @@
         android:key="quiet_hours_timerange"
         android:persistent="true" />
 
+    <CheckBoxPreference
+        android:dependency="quiet_hours_enabled"
+        android:key="enable_days_of_week"
+        android:summary="@string/enable_days_of_week_summary"
+        android:title="@string/enable_days_of_week_title" />
+
+    <in.isotope.xquiethours.DayOfWeekPreference
+        android:dependency="enable_days_of_week"
+        android:key="days_of_week"
+        android:persistent="true" />
+
     <PreferenceCategory
         android:key="pref_notification_settings"
         android:title="@string/notification_settings" >
@@ -41,8 +53,7 @@
             android:summary="@string/no_led" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/credits" >
-        <PreferenceScreen
-            android:title="@string/credits" >
+        <PreferenceScreen android:title="@string/credits" >
             <intent android:action="in.isotope.xquiethours.CreditsActivity" />
         </PreferenceScreen>
     </PreferenceCategory>

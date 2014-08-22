@@ -1,4 +1,5 @@
 package in.isotope.xquiethours;
+
 /*
  * Copyright (C) 2014 Deepak Srivastav for XQuietHours Project 
  *
@@ -18,7 +19,6 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
-import android.preference.PreferenceFragment;
 
 public class QuietHoursActivity extends PreferenceActivity {
 
@@ -30,23 +30,8 @@ public class QuietHoursActivity extends PreferenceActivity {
 		FragmentManager mFragmentManager = getFragmentManager();
 		FragmentTransaction mFragmentTransaction = mFragmentManager
 				.beginTransaction();
-		PrefsFragment mPrefsFragment = new PrefsFragment();
+		XQuietHoursPrefFragment mPrefsFragment = new XQuietHoursPrefFragment();
 		mFragmentTransaction.replace(android.R.id.content, mPrefsFragment);
 		mFragmentTransaction.commit();
-	}
-
-	public static class PrefsFragment extends PreferenceFragment {
-
-		@SuppressWarnings("deprecation")
-		@Override
-		public void onCreate(Bundle savedInstanceState) {
-			super.onCreate(savedInstanceState);
-
-			getPreferenceManager()
-					.setSharedPreferencesMode(MODE_WORLD_READABLE);
-
-			// Load the preferences from an XML resource
-			addPreferencesFromResource(R.xml.settings);
-		}
 	}
 }

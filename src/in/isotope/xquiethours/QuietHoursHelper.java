@@ -23,11 +23,16 @@ import de.robv.android.xposed.XSharedPreferences;
 public final class QuietHoursHelper {
 
 	private static final String PACKAGE_NAME = "in.isotope.xquiethours";
-	private static final String KEY_QUIET_HOURS_ENABLED = "quiet_hours_enabled";
-	private static final String KEY_QUIET_HOURS_TIME_RANGE = "quiet_hours_timerange";
-	private static final String KEY_MUTE_SOUND = "mute_sound";
-	private static final String KEY_NO_VIBE = "no_vibe";
-	private static final String KEY_NO_LED = "no_led";
+	public static final String KEY_QUIET_HOURS_ENABLED = "quiet_hours_enabled";
+	public static final String KEY_QUIET_HOURS_TIME_RANGE = "quiet_hours_timerange";
+	public static final String KEY_MUTE_SOUND = "mute_sound";
+	public static final String KEY_NO_VIBE = "no_vibe";
+	public static final String KEY_NO_LED = "no_led";
+	public static final String KEY_ENABLE_DAYS_OF_WEEK = "enable_days_of_week";
+	public static final String KEY_DAYS_OF_WEEK = "days_of_week";
+
+	private static final String[] DAYS_OF_WEEK = new String[] { "SUN", "MON",
+			"TUE", "WED", "THU", "FRI", "SAT" };
 
 	private XSharedPreferences preferences = null;
 
@@ -40,14 +45,24 @@ public final class QuietHoursHelper {
 	public boolean isInQuietHours() {
 		preferences.reload();
 		try {
+			Time t = new Time();
+			t.setToNow();
+
+			// if days are enabled
+			if (preferences.getBoolean(KEY_ENABLE_DAYS_OF_WEEK, false)) {
+				// return false if quiet hours is not applicable on current day
+				if (!preferences.getString(KEY_DAYS_OF_WEEK, "").contains(
+						DAYS_OF_WEEK[t.weekDay])) {
+					return false;
+				}
+			}
+
 			String[] quietTimeRange = preferences.getString(
 					KEY_QUIET_HOURS_TIME_RANGE, "").split("\\|");
 
 			int start = Integer.parseInt(quietTimeRange[0]);
 			int end = Integer.parseInt(quietTimeRange[1]);
 
-			Time t = new Time();
-			t.setToNow();
 			long now = ((t.hour * 60) + t.minute);
 
 			if (end <= start) {
