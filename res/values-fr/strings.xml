@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="start_time_title">Début</string>
+    <string name="end_time_title">Fin</string>
+    <string name="quiet_hours_title_preference">XQuietHours</string>
+    <string name="app_name">XQuietHours</string>
+    <string name="action_settings">Paramètres</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="mute_sound">Son coupé</string>
+    <string name="no_vibe">Vibreur désactivé</string>
+    <string name="no_led">LED désactivée</string>
+    <string name="notification_settings">Paramètres de notification</string>
+    <string name="credits">Crédits</string>
+    <string name="enable_days_of_week_title">Sélectionner les jours de la semaine ?</string>
+    <string name="enable_days_of_week_summary">Sélectionner les jour où XQuietHours doit être activé</string>
+    <string name="sun">DIM</string>
+    <string name="mon">lUN</string>
+    <string name="tue">MAR</string>
+    <string name="wed">MER</string>
+    <string name="thu">JEU</string>
+    <string name="fri">VEN</string>
+    <string name="sat">SAM</string>
+
+</resources>
