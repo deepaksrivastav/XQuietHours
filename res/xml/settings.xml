@@ -12,7 +12,7 @@
      distributed under the License is distributed on an "AS IS" BASIS,
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      See the License for the specific language governing permissions and
-     limitations under the License.
+     limitations under the License.
 -->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
@@ -20,42 +20,29 @@
         android:key="quiet_hours_enabled"
         android:title="@string/quiet_hours_title_preference" />
 
-    <in.isotope.xquiethours.TimeRangePreference
-        android:dependency="quiet_hours_enabled"
-        android:key="quiet_hours_timerange"
-        android:persistent="true" />
-
-    <CheckBoxPreference
-        android:dependency="quiet_hours_enabled"
-        android:key="enable_days_of_week"
-        android:summary="@string/enable_days_of_week_summary"
-        android:title="@string/enable_days_of_week_title" />
-
-    <in.isotope.xquiethours.DayOfWeekPreference
-        android:dependency="enable_days_of_week"
-        android:key="days_of_week"
-        android:persistent="true" />
-
-    <PreferenceCategory
-        android:key="pref_notification_settings"
-        android:title="@string/notification_settings" >
+    <PreferenceCategory android:title="@string/profile1_text" >
         <CheckBoxPreference
             android:dependency="quiet_hours_enabled"
-            android:key="mute_sound"
-            android:summary="@string/mute_sound" />
+            android:key="enable_profile1"
+            android:summary="@string/profile1_text"/>
+        <in.isotope.xquiethours.QuietHourPreference
+            android:dependency="enable_profile1"
+            android:key="quiet_hours_1"
+            android:persistent="true" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/profile2_text" >
         <CheckBoxPreference
             android:dependency="quiet_hours_enabled"
-            android:key="no_vibe"
-            android:summary="@string/no_vibe" />
-        <CheckBoxPreference
-            android:dependency="quiet_hours_enabled"
-            android:key="no_led"
-            android:summary="@string/no_led" />
+            android:key="enable_profile2"
+            android:summary="@string/profile2_text"/>
+        <in.isotope.xquiethours.QuietHourPreference
+            android:dependency="enable_profile2"
+            android:key="quiet_hours_2"
+            android:persistent="true" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/credits" >
         <PreferenceScreen android:title="@string/credits" >
             <intent android:action="in.isotope.xquiethours.CreditsActivity" />
         </PreferenceScreen>
     </PreferenceCategory>
-
-</PreferenceScreen>
+  </PreferenceScreen>

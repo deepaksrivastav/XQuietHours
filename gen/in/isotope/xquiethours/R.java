@@ -41,14 +41,19 @@ public final class R {
         public static final int WED=0x7f090003;
         public static final int end_time=0x7f09000a;
         public static final int end_time_text=0x7f09000b;
+        public static final int led=0x7f09000f;
+        public static final int notificationOpts=0x7f09000c;
         public static final int repeat_days=0x7f090000;
+        public static final int sound=0x7f09000e;
         public static final int start_time=0x7f090008;
         public static final int start_time_text=0x7f090009;
+        public static final int vibe=0x7f09000d;
     }
     public static final class layout {
         public static final int activity_credits=0x7f030000;
         public static final int preference_days_of_week=0x7f030001;
         public static final int preference_time_range=0x7f030002;
+        public static final int quiet_hour_preference=0x7f030003;
     }
     public static final class string {
         public static final int action_settings=0x7f070004;
@@ -64,6 +69,8 @@ public final class R {
         public static final int no_led=0x7f070008;
         public static final int no_vibe=0x7f070007;
         public static final int notification_settings=0x7f070009;
+        public static final int profile1_text=0x7f070014;
+        public static final int profile2_text=0x7f070015;
         public static final int quiet_hours_title_preference=0x7f070002;
         public static final int sat=0x7f070013;
         public static final int start_time_title=0x7f070000;

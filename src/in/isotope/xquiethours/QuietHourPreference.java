@@ -1,19 +1,3 @@
-/*
- * Copyright (C) 2014 Deepak Srivastav for XQuietHours Project 
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package in.isotope.xquiethours;
 
 import java.util.Calendar;
@@ -28,8 +12,9 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.ToggleButton;
 
-public class TimeRangePreference extends Preference implements
+public class QuietHourPreference extends Preference implements
 		View.OnClickListener {
 
 	private static final int DIALOG_START_TIME = 1;
@@ -40,11 +25,13 @@ public class TimeRangePreference extends Preference implements
 	private int mStartTime;
 	private int mEndTime;
 
-	/**
-	 * @param context
-	 * @param attrs
-	 */
-	public TimeRangePreference(Context context, AttributeSet attrs) {
+	private ToggleButton[] buttons = new ToggleButton[7];
+
+	private ToggleButton noSound;
+	private ToggleButton noVibe;
+	private ToggleButton noLED;
+
+	public QuietHourPreference(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		init();
 	}
@@ -72,6 +59,10 @@ public class TimeRangePreference extends Preference implements
 		updatePreferenceViews();
 	}
 
+	private void init() {
+		setLayoutResource(R.layout.quiet_hour_preference);
+	}
+
 	private void saveValue() {
 		String str = mStartTime + "|" + mEndTime;
 		persistString(str);
@@ -92,10 +83,6 @@ public class TimeRangePreference extends Preference implements
 			mStartTime = 0;
 			mEndTime = 0;
 		}
-	}
-
-	private void init() {
-		setLayoutResource(R.layout.preference_time_range);
 	}
 
 	private void updatePreferenceViews() {
