@@ -13,7 +13,7 @@
     <string name="notification_settings">Paramètres de notification</string>
     <string name="credits">Crédits</string>
     <string name="enable_days_of_week_title">Sélectionner les jours de la semaine ?</string>
-    <string name="enable_days_of_week_summary">Sélectionner les jour où XQuietHours doit être activé</string>
+    <string name="enable_days_of_week_summary">Sélectionner les jours où XQuietHours doit être activé</string>
     <string name="sun">DIM</string>
     <string name="mon">lUN</string>
     <string name="tue">MAR</string>
