@@ -3,6 +3,9 @@ package in.isotope.xquiethours;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.preference.Preference;
@@ -54,6 +57,67 @@ public class QuietHourPreference extends Preference implements
 		mStartTimeText = (TextView) view.findViewById(R.id.start_time_text);
 		mEndTimeText = (TextView) view.findViewById(R.id.end_time_text);
 
+		ToggleButton sunday = (ToggleButton) view.findViewById(R.id.SUN);
+		if (null != sunday && sunday instanceof ToggleButton) {
+			sunday.setOnClickListener(this);
+			buttons[0] = sunday;
+		}
+
+		ToggleButton monday = (ToggleButton) view.findViewById(R.id.MON);
+		if (null != monday && monday instanceof ToggleButton) {
+			monday.setOnClickListener(this);
+			buttons[1] = monday;
+		}
+
+		ToggleButton tuesday = (ToggleButton) view.findViewById(R.id.TUE);
+		if (null != tuesday && tuesday instanceof ToggleButton) {
+			tuesday.setOnClickListener(this);
+			buttons[2] = tuesday;
+		}
+
+		ToggleButton wednesday = (ToggleButton) view.findViewById(R.id.WED);
+		if (null != wednesday && wednesday instanceof ToggleButton) {
+			wednesday.setOnClickListener(this);
+			buttons[3] = wednesday;
+		}
+
+		ToggleButton thursday = (ToggleButton) view.findViewById(R.id.THU);
+		if (null != thursday && thursday instanceof ToggleButton) {
+			thursday.setOnClickListener(this);
+			buttons[4] = thursday;
+		}
+
+		ToggleButton friday = (ToggleButton) view.findViewById(R.id.FRI);
+		if (null != friday && friday instanceof ToggleButton) {
+			friday.setOnClickListener(this);
+			buttons[5] = friday;
+		}
+
+		ToggleButton saturday = (ToggleButton) view.findViewById(R.id.SAT);
+		if (null != saturday && saturday instanceof ToggleButton) {
+			saturday.setOnClickListener(this);
+			buttons[6] = saturday;
+		}
+
+		ToggleButton noLedButton = (ToggleButton) view.findViewById(R.id.led);
+		if (null != noLedButton && noLedButton instanceof ToggleButton) {
+			noLedButton.setOnClickListener(this);
+			noLED = noLedButton;
+		}
+
+		ToggleButton noSoundButton = (ToggleButton) view
+				.findViewById(R.id.sound);
+		if (null != noSoundButton && noSoundButton instanceof ToggleButton) {
+			noLedButton.setOnClickListener(this);
+			noSound = noSoundButton;
+		}
+
+		ToggleButton noVibeButton = (ToggleButton) view.findViewById(R.id.vibe);
+		if (null != noVibeButton && noVibeButton instanceof ToggleButton) {
+			noLedButton.setOnClickListener(this);
+			noVibe = noVibeButton;
+		}
+
 		// get saved values
 		updateSavedValue();
 		updatePreferenceViews();
@@ -65,23 +129,63 @@ public class QuietHourPreference extends Preference implements
 
 	private void saveValue() {
 		String str = mStartTime + "|" + mEndTime;
-		persistString(str);
+		
+		StringBuilder builder = new StringBuilder();
+		for (int i = 0; i < buttons.length; i++) {
+			if (buttons[i].isChecked()) {
+				builder.append(buttons[i].getText());
+				builder.append(";");
+			}
+		}
+
+		JSONObject preference1 = new JSONObject();
+		try {
+			preference1.put("time", str);
+			preference1.put("dayOfWeek", builder.toString());
+			preference1.put("noVibe", noVibe.isChecked());
+			preference1.put("noSound", noSound.isChecked());
+			preference1.put("noLed", noLED.isChecked());
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		persistString(preference1.toString());
 	}
 
 	private void updateSavedValue() {
-		String currentValue = getPersistedString("0|0");
-		String[] split = currentValue.split("\\|");
-		if (split.length == 2) {
-			try {
-				mStartTime = Integer.parseInt(split[0]);
-				mEndTime = Integer.parseInt(split[1]);
-			} catch (NumberFormatException e) {
+		try {
+			String currentTimeValue = "0|0";
+			String dayOfWeek = "";
+
+			JSONObject preference1 = new JSONObject(getPersistedString(""));
+
+			currentTimeValue = preference1.getString("time");
+			String[] split = currentTimeValue.split("\\|");
+			if (split.length == 2) {
+				try {
+					mStartTime = Integer.parseInt(split[0]);
+					mEndTime = Integer.parseInt(split[1]);
+				} catch (NumberFormatException e) {
+					mStartTime = 0;
+					mEndTime = 0;
+				}
+			} else {
 				mStartTime = 0;
 				mEndTime = 0;
 			}
-		} else {
-			mStartTime = 0;
-			mEndTime = 0;
+
+			dayOfWeek = preference1.getString("dayOfWeek");
+			for (int i = 0; i < buttons.length; i++) {
+				if (dayOfWeek.contains(buttons[i].getText())) {
+					buttons[i].setChecked(true);
+				}
+			}
+
+			noLED.setChecked(preference1.getBoolean("noLed"));
+			noSound.setChecked(preference1.getBoolean("noSound"));
+			noVibe.setChecked(preference1.getBoolean("noVibe"));
+
+		} catch (JSONException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -125,6 +229,8 @@ public class QuietHourPreference extends Preference implements
 				TimePicker(DIALOG_START_TIME);
 			} else if (R.id.end_time == v.getId()) {
 				TimePicker(DIALOG_END_TIME);
+			} else {
+				saveValue();
 			}
 		}
 	}

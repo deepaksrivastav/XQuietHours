@@ -22,6 +22,7 @@
     <string name="fri">FRI</string>
     <string name="sat">SAT</string>
     
-    <string name="profile1_text">Profile 1</string>
-	<string name="profile2_text">Profile 2</string>
+    <string name="additional_profile_title">Additional Quiet Hour</string>
+	<string name="additional_profile_summary">Configure an additional quiet hour</string>
+	<string name="configuration">Configuration</string>
 </resources>
