@@ -45,9 +45,6 @@ public class XposedModule implements IXposedHookLoadPackage {
 			// initialize helper class
 			setAdditionalStaticField(QuietHoursHelper.class,
 					"QuietHoursHelper", new QuietHoursHelper());
-			QuietHoursHelper helper = getHelper();
-			XposedBridge.log("Is in quiet hours : " + helper.isInQuietHours());
-
 			// hook notification method
 			XposedHelpers
 					.findAndHookMethod(
@@ -63,8 +60,6 @@ public class XposedModule implements IXposedHookLoadPackage {
 										QuietHoursHelper helper = getHelper();
 										if (helper.isQuietHoursEnabled()
 												&& helper.isInQuietHours()) {
-											XposedBridge
-													.log("Inside quiet hours !");
 											Notification n = (Notification) param.args[6];
 											if (n.extras
 													.containsKey("gbIgnoreNotification"))
