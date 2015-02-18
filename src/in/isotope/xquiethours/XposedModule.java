@@ -16,6 +16,8 @@
 
 package in.isotope.xquiethours;
 
+import static de.robv.android.xposed.XposedHelpers.getAdditionalStaticField;
+import static de.robv.android.xposed.XposedHelpers.setAdditionalStaticField;
 import android.app.Notification;
 import android.util.Log;
 import de.robv.android.xposed.IXposedHookLoadPackage;
@@ -23,9 +25,6 @@ import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam;
-
-import static de.robv.android.xposed.XposedHelpers.getAdditionalStaticField;
-import static de.robv.android.xposed.XposedHelpers.setAdditionalStaticField;
 
 public class XposedModule implements IXposedHookLoadPackage {
 
@@ -40,61 +39,69 @@ public class XposedModule implements IXposedHookLoadPackage {
 
 	@Override
 	public void handleLoadPackage(LoadPackageParam lpparam) throws Throwable {
-		XposedBridge.log("Loaded app :" + lpparam.packageName);
+		if (lpparam.packageName.equals("android")) {
+			XposedBridge.log("Loaded app :" + lpparam.packageName);
 
-		// initialize helper class
-		setAdditionalStaticField(QuietHoursHelper.class, "QuietHoursHelper",
-				new QuietHoursHelper());
+			// initialize helper class
+			setAdditionalStaticField(QuietHoursHelper.class,
+					"QuietHoursHelper", new QuietHoursHelper());
+			QuietHoursHelper helper = getHelper();
+			XposedBridge.log("Is in quiet hours : " + helper.isInQuietHours());
 
-		// hook notification method
-		XposedHelpers.findAndHookMethod(
-				"com.android.server.NotificationManagerService", null,
-				"enqueueNotificationWithTag", String.class, String.class,
-				String.class, int.class, Notification.class, int[].class,
-				int.class, new XC_MethodHook() {
-					@Override
-					protected void beforeHookedMethod(MethodHookParam param)
-							throws Throwable {
-						try {
-							QuietHoursHelper helper = getHelper();
-							if (helper.isQuietHoursEnabled()
-									&& helper.isInQuietHours()) {
-								Notification n = (Notification) param.args[4];
-								if (n.extras
-										.containsKey("gbIgnoreNotification"))
-									return;
+			// hook notification method
+			XposedHelpers
+					.findAndHookMethod(
+							"com.android.server.notification.NotificationManagerService",
+							lpparam.classLoader, "enqueueNotificationInternal",
+							String.class, String.class, int.class, int.class,
+							String.class, int.class, Notification.class,
+							int[].class, int.class, new XC_MethodHook() {
+								@Override
+								protected void beforeHookedMethod(
+										MethodHookParam param) throws Throwable {
+									try {
+										QuietHoursHelper helper = getHelper();
+										if (helper.isQuietHoursEnabled()
+												&& helper.isInQuietHours()) {
+											XposedBridge
+													.log("Inside quiet hours !");
+											Notification n = (Notification) param.args[6];
+											if (n.extras
+													.containsKey("gbIgnoreNotification"))
+												return;
 
-								if (helper.isNoVibrateEnabled()) {
-									// do not vibrate
-									n.defaults &= ~Notification.DEFAULT_VIBRATE;
-									n.vibrate = new long[] { 0 };
+											if (helper.isNoVibrateEnabled()) {
+												// do not vibrate
+												n.defaults &= ~Notification.DEFAULT_VIBRATE;
+												n.vibrate = new long[] { 0 };
+											}
+
+											if (helper.isMuteSoundEnabled()) {
+												// do not make sound
+												n.defaults &= ~Notification.DEFAULT_SOUND;
+												n.sound = null;
+												n.flags &= ~Notification.FLAG_INSISTENT;
+											}
+
+											if (helper.isNoLedEnabled()) {
+												// led
+												n.ledOffMS = 0;
+												n.ledOnMS = 0;
+												n.flags &= ~Notification.FLAG_SHOW_LIGHTS;
+											}
+										}
+									} catch (Throwable t) {
+										XposedBridge.log(t);
+									}
 								}
 
-								if (helper.isMuteSoundEnabled()) {
-									// do not make sound
-									n.defaults &= ~Notification.DEFAULT_SOUND;
-									n.sound = null;
-									n.flags &= ~Notification.FLAG_INSISTENT;
+								@Override
+								protected void afterHookedMethod(
+										MethodHookParam param) throws Throwable {
+
 								}
-
-								if (helper.isNoLedEnabled()) {
-									// led
-									n.ledOffMS = 0;
-									n.ledOnMS = 0;
-									n.flags &= ~Notification.FLAG_SHOW_LIGHTS;
-								}
-							}
-						} catch (Throwable t) {
-							XposedBridge.log(t);
-						}
-					}
-
-					@Override
-					protected void afterHookedMethod(MethodHookParam param)
-							throws Throwable {
-
-					}
-				});
+							});
+		}
 	}
 
 }
