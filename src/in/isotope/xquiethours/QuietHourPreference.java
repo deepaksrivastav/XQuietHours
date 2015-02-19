@@ -140,11 +140,11 @@ public class QuietHourPreference extends Preference implements
 
 		JSONObject preference1 = new JSONObject();
 		try {
-			preference1.put("time", str);
-			preference1.put("dayOfWeek", builder.toString());
-			preference1.put("noVibe", noVibe.isChecked());
-			preference1.put("noSound", noSound.isChecked());
-			preference1.put("noLed", noLED.isChecked());
+			preference1.put(QuietHoursHelper.KEY_QUIET_HOURS_TIME_RANGE, str);
+			preference1.put(QuietHoursHelper.KEY_DAYS_OF_WEEK, builder.toString());
+			preference1.put(QuietHoursHelper.KEY_NO_VIBE, noVibe.isChecked());
+			preference1.put(QuietHoursHelper.KEY_MUTE_SOUND, noSound.isChecked());
+			preference1.put(QuietHoursHelper.KEY_NO_LED, noLED.isChecked());
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -158,7 +158,7 @@ public class QuietHourPreference extends Preference implements
 
 			JSONObject preference1 = new JSONObject(getPersistedString(""));
 
-			currentTimeValue = preference1.getString("time");
+			currentTimeValue = preference1.getString(QuietHoursHelper.KEY_QUIET_HOURS_TIME_RANGE);
 			String[] split = currentTimeValue.split("\\|");
 			if (split.length == 2) {
 				try {
@@ -173,7 +173,7 @@ public class QuietHourPreference extends Preference implements
 				mEndTime = 0;
 			}
 
-			dayOfWeek = preference1.getString("dayOfWeek");
+			dayOfWeek = preference1.getString(QuietHoursHelper.KEY_DAYS_OF_WEEK);
 			for (int i = 0; i < buttons.length; i++) {
 				if (dayOfWeek.contains(buttons[i].getText())) {
 					buttons[i].setChecked(true);
@@ -182,9 +182,9 @@ public class QuietHourPreference extends Preference implements
 				}
 			}
 
-			noLED.setChecked(preference1.getBoolean("noLed"));
-			noSound.setChecked(preference1.getBoolean("noSound"));
-			noVibe.setChecked(preference1.getBoolean("noVibe"));
+			noLED.setChecked(preference1.getBoolean(QuietHoursHelper.KEY_NO_LED));
+			noSound.setChecked(preference1.getBoolean(QuietHoursHelper.KEY_MUTE_SOUND));
+			noVibe.setChecked(preference1.getBoolean(QuietHoursHelper.KEY_NO_VIBE));
 
 		} catch (JSONException e) {
 			e.printStackTrace();

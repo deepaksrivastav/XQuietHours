@@ -29,6 +29,11 @@ import static de.robv.android.xposed.XposedHelpers.setAdditionalStaticField;
 
 public class XposedModule implements IXposedHookLoadPackage {
 
+	private static final String LOLLIPOP_CLASS = "com.android.server.notification.NotificationManagerService";
+	private static final String KITKAT_CLASS = "com.android.server.NotificationManagerService";
+	private static final String HOOK_METHOD = "enqueueNotificationInternal";
+	private String classToIntercept = LOLLIPOP_CLASS;
+
 	private QuietHoursHelper getHelper() {
 		QuietHoursHelper helper = (QuietHoursHelper) getAdditionalStaticField(
 				QuietHoursHelper.class, "QuietHoursHelper");
@@ -40,6 +45,22 @@ public class XposedModule implements IXposedHookLoadPackage {
 
 	@Override
 	public void handleLoadPackage(LoadPackageParam lpparam) throws Throwable {
+
+		if (!lpparam.packageName.equals("android"))
+			return;
+
+		// check build version
+		int buildVersion = android.os.Build.VERSION.SDK_INT;
+		if (buildVersion == 19) {
+			// Kitkat
+			classToIntercept = KITKAT_CLASS;
+		} else if (buildVersion == 21) {
+			// Lollipop
+			classToIntercept = LOLLIPOP_CLASS;
+		} else {
+			XposedBridge.log("Unsupported SDK Version detected. Cannot run");
+		}
+
 		XposedBridge.log("Loaded app :" + lpparam.packageName);
 
 		// initialize helper class
@@ -47,9 +68,8 @@ public class XposedModule implements IXposedHookLoadPackage {
 				new QuietHoursHelper());
 
 		// hook notification method
-		XposedHelpers.findAndHookMethod(
-				"com.android.server.NotificationManagerService", null,
-				"enqueueNotificationWithTag", String.class, String.class,
+		XposedHelpers.findAndHookMethod(classToIntercept, lpparam.classLoader,
+				HOOK_METHOD, String.class, String.class, int.class, int.class,
 				String.class, int.class, Notification.class, int[].class,
 				int.class, new XC_MethodHook() {
 					@Override
@@ -57,9 +77,8 @@ public class XposedModule implements IXposedHookLoadPackage {
 							throws Throwable {
 						try {
 							QuietHoursHelper helper = getHelper();
-							if (helper.isQuietHoursEnabled()
-									&& helper.isInQuietHours()) {
-								Notification n = (Notification) param.args[4];
+							if (helper.isInQuietHours()) {
+								Notification n = (Notification) param.args[6];
 								if (n.extras
 										.containsKey("gbIgnoreNotification"))
 									return;
