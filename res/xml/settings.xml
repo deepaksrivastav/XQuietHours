@@ -36,7 +36,7 @@
 
         <in.isotope.xquiethours.QuietHourPreference
             android:dependency="add_quiet_hours_enabled"
-            android:key="quiet_hours_1"
+            android:key="quiet_hours_2"
             android:persistent="true" />
     </PreferenceScreen>
 

@@ -24,6 +24,7 @@ public final class QuietHoursHelper {
 
 	private static final String PACKAGE_NAME = "in.isotope.xquiethours";
 	public static final String KEY_QUIET_HOURS_ENABLED = "quiet_hours_enabled";
+	public static final String ADDLN_KEY_QUIET_HOURS_ENABLED = "add_quiet_hours_enabled";
 	public static final String KEY_QUIET_HOURS_TIME_RANGE = "quiet_hours_timerange";
 	public static final String KEY_MUTE_SOUND = "mute_sound";
 	public static final String KEY_NO_VIBE = "no_vibe";

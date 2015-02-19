@@ -19,7 +19,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
-import android.preference.CheckBoxPreference;
 import android.preference.PreferenceFragment;
 
 public class XQuietHoursPrefFragment extends PreferenceFragment implements
@@ -39,29 +38,7 @@ public class XQuietHoursPrefFragment extends PreferenceFragment implements
 	@Override
 	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
 			String key) {
-		// if none of the days are selected
-		// uncheck enable days of week control
-		if (key.equals(QuietHoursHelper.KEY_DAYS_OF_WEEK)) {
-			if (sharedPreferences.getString(QuietHoursHelper.KEY_DAYS_OF_WEEK,
-					"").length() == 0) {
-				CheckBoxPreference exercisesPref = (CheckBoxPreference) findPreference(QuietHoursHelper.KEY_ENABLE_DAYS_OF_WEEK);
-				exercisesPref.setChecked(false);
-			}
-		}
-
-		// if enable days of week is checked
-		// and if none of the days of week are selected
-		// select all by default
-		if (key.equals(QuietHoursHelper.KEY_ENABLE_DAYS_OF_WEEK)) {
-			if (sharedPreferences.getBoolean(
-					QuietHoursHelper.KEY_ENABLE_DAYS_OF_WEEK, false)) {
-				if (sharedPreferences.getString(
-						QuietHoursHelper.KEY_DAYS_OF_WEEK, "").length() == 0) {
-					DayOfWeekPreference exercisesPref = (DayOfWeekPreference) findPreference(QuietHoursHelper.KEY_DAYS_OF_WEEK);
-					exercisesPref.enableAll();
-				}
-			}
-		}
+		// TODO: handle selected days
 	}
 
 	@Override

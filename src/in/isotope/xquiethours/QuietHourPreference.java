@@ -108,13 +108,13 @@ public class QuietHourPreference extends Preference implements
 		ToggleButton noSoundButton = (ToggleButton) view
 				.findViewById(R.id.sound);
 		if (null != noSoundButton && noSoundButton instanceof ToggleButton) {
-			noLedButton.setOnClickListener(this);
+			noSoundButton.setOnClickListener(this);
 			noSound = noSoundButton;
 		}
 
 		ToggleButton noVibeButton = (ToggleButton) view.findViewById(R.id.vibe);
 		if (null != noVibeButton && noVibeButton instanceof ToggleButton) {
-			noLedButton.setOnClickListener(this);
+			noVibeButton.setOnClickListener(this);
 			noVibe = noVibeButton;
 		}
 
@@ -177,6 +177,8 @@ public class QuietHourPreference extends Preference implements
 			for (int i = 0; i < buttons.length; i++) {
 				if (dayOfWeek.contains(buttons[i].getText())) {
 					buttons[i].setChecked(true);
+				} else {
+					buttons[i].setChecked(false);
 				}
 			}
 
