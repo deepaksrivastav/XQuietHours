@@ -16,6 +16,7 @@
 
 package in.isotope.xquiethours;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.text.format.Time;
@@ -47,7 +48,7 @@ public final class QuietHoursHelper {
 		Log.i(PACKAGE_NAME, "Quiet Hours Helper initialized");
 	}
 
-	public boolean isInQuietHours() {
+	public String isInQuietHours() {
 
 		if (isQuietHoursEnabled(KEY_QUIET_HOURS_ENABLED)) {
 			Time t = new Time();
@@ -55,17 +56,22 @@ public final class QuietHoursHelper {
 			long now = ((t.hour * 60) + t.minute);
 			int weekDay = t.weekDay;
 
-			return (isInQuietHours(QUIET_HOURS_1_KEY, weekDay, now) || (isQuietHoursEnabled(ADDLN_KEY_QUIET_HOURS_ENABLED) && isInQuietHours(
-					QUIET_HOURS_2_KEY, weekDay, now)));
+			if (isInQuietHours(QUIET_HOURS_1_KEY, weekDay, now)) {
+				return QUIET_HOURS_1_KEY;
+			} else if (isQuietHoursEnabled(ADDLN_KEY_QUIET_HOURS_ENABLED)
+					&& isInQuietHours(QUIET_HOURS_2_KEY, weekDay, now)) {
+				return QUIET_HOURS_2_KEY;
+			}
 		}
-		return false;
+		return null;
 	}
 
 	private boolean isInQuietHours(String preference, int weekDay, long now) {
 		preferences.reload();
 		try {
 
-			JSONObject preferenceObj = new JSONObject(preferences.getString(preference,""));
+			JSONObject preferenceObj = new JSONObject(preferences.getString(
+					preference, ""));
 			// if days are enabled
 			// return false if quiet hours is not applicable on current day
 			if (!preferenceObj.getString(KEY_DAYS_OF_WEEK).contains(
@@ -101,18 +107,26 @@ public final class QuietHoursHelper {
 		return preferences.getBoolean(key, false);
 	}
 
-	public boolean isNoVibrateEnabled() {
-		preferences.reload();
-		return preferences.getBoolean(KEY_NO_VIBE, false);
+	public boolean isNoVibrateEnabled(String key) {
+		return getFlag(key, KEY_NO_VIBE);
 	}
 
-	public boolean isMuteSoundEnabled() {
-		preferences.reload();
-		return preferences.getBoolean(KEY_MUTE_SOUND, false);
+	public boolean isMuteSoundEnabled(String key) throws JSONException {
+		return getFlag(key, KEY_MUTE_SOUND);
 	}
 
-	public boolean isNoLedEnabled() {
+	public boolean isNoLedEnabled(String key) {
+		return getFlag(key, KEY_NO_LED);
+	}
+
+	public boolean getFlag(String mainKey, String optKey) {
 		preferences.reload();
-		return preferences.getBoolean(KEY_NO_LED, false);
+		try {
+			JSONObject preferenceObj = new JSONObject(preferences.getString(
+					mainKey, ""));
+			return preferenceObj.getBoolean(optKey);
+		} catch (JSONException e) {
+			return false;
+		}
 	}
 }

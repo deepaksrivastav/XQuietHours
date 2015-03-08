@@ -77,26 +77,27 @@ public class XposedModule implements IXposedHookLoadPackage {
 							throws Throwable {
 						try {
 							QuietHoursHelper helper = getHelper();
-							if (helper.isInQuietHours()) {
+							String qHoursActive = helper.isInQuietHours();
+							if (null != qHoursActive) {
 								Notification n = (Notification) param.args[6];
 								if (n.extras
 										.containsKey("gbIgnoreNotification"))
 									return;
 
-								if (helper.isNoVibrateEnabled()) {
+								if (helper.isNoVibrateEnabled(qHoursActive)) {
 									// do not vibrate
 									n.defaults &= ~Notification.DEFAULT_VIBRATE;
 									n.vibrate = new long[] { 0 };
 								}
 
-								if (helper.isMuteSoundEnabled()) {
+								if (helper.isMuteSoundEnabled(qHoursActive)) {
 									// do not make sound
 									n.defaults &= ~Notification.DEFAULT_SOUND;
 									n.sound = null;
 									n.flags &= ~Notification.FLAG_INSISTENT;
 								}
 
-								if (helper.isNoLedEnabled()) {
+								if (helper.isNoLedEnabled(qHoursActive)) {
 									// led
 									n.ledOffMS = 0;
 									n.ledOnMS = 0;
