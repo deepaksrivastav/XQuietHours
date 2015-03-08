@@ -16,6 +16,8 @@
 
 package in.isotope.xquiethours;
 
+import static de.robv.android.xposed.XposedHelpers.getAdditionalStaticField;
+import static de.robv.android.xposed.XposedHelpers.setAdditionalStaticField;
 import android.app.Notification;
 import android.util.Log;
 import de.robv.android.xposed.IXposedHookLoadPackage;
@@ -23,9 +25,6 @@ import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam;
-
-import static de.robv.android.xposed.XposedHelpers.getAdditionalStaticField;
-import static de.robv.android.xposed.XposedHelpers.setAdditionalStaticField;
 
 public class XposedModule implements IXposedHookLoadPackage {
 

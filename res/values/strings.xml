@@ -14,13 +14,7 @@
     <string name="credits">Credits</string>
     <string name="enable_days_of_week_title">Select days of week?</string>
     <string name="enable_days_of_week_summary">Select days on which XQuietHours should be active</string>
-    <string name="sun">SUN</string>
-    <string name="mon">MON</string>
-    <string name="tue">TUE</string>
-    <string name="wed">WED</string>
-    <string name="thu">THU</string>
-    <string name="fri">FRI</string>
-    <string name="sat">SAT</string>
+ 
     
     <string name="additional_profile_title">Additional Quiet Hour</string>
 	<string name="additional_profile_summary">Configure an additional quiet hour</string>

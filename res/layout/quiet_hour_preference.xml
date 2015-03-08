@@ -111,6 +111,17 @@
         android:layout_marginRight="10dp"
         android:layout_marginStart="10dp"
         android:orientation="horizontal" >
+        
+        <ToggleButton
+            android:id="@+id/SUN"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:background="@drawable/toggle_underline"
+            android:checked="false"
+            android:fontFamily="sans-serif-condensed"
+            android:padding="0dp"
+            android:textSize="16sp" />
 
         <ToggleButton
             android:id="@+id/MON"
@@ -118,11 +129,9 @@
             android:layout_height="48dp"
             android:layout_weight="1"
             android:background="@drawable/toggle_underline"
-            android:checked="true"
+            android:checked="false"
             android:fontFamily="sans-serif-condensed"
             android:padding="0dp"
-            android:textOff="@string/mon"
-            android:textOn="@string/mon"
             android:textSize="16sp" />
 
         <ToggleButton
@@ -131,11 +140,9 @@
             android:layout_height="48dp"
             android:layout_weight="1"
             android:background="@drawable/toggle_underline"
-            android:checked="true"
+            android:checked="false"
             android:fontFamily="sans-serif-condensed"
             android:padding="0dp"
-            android:textOff="@string/tue"
-            android:textOn="@string/tue"
             android:textSize="16sp" />
 
         <ToggleButton
@@ -144,11 +151,9 @@
             android:layout_height="48dp"
             android:layout_weight="1"
             android:background="@drawable/toggle_underline"
-            android:checked="true"
+            android:checked="false"
             android:fontFamily="sans-serif-condensed"
             android:padding="0dp"
-            android:textOff="@string/wed"
-            android:textOn="@string/wed"
             android:textSize="16sp" />
 
         <ToggleButton
@@ -157,11 +162,9 @@
             android:layout_height="48dp"
             android:layout_weight="1"
             android:background="@drawable/toggle_underline"
-            android:checked="true"
+            android:checked="false"
             android:fontFamily="sans-serif-condensed"
             android:padding="0dp"
-            android:textOff="@string/thu"
-            android:textOn="@string/thu"
             android:textSize="16sp" />
 
         <ToggleButton
@@ -170,11 +173,9 @@
             android:layout_height="48dp"
             android:layout_weight="1"
             android:background="@drawable/toggle_underline"
-            android:checked="true"
+            android:checked="false"
             android:fontFamily="sans-serif-condensed"
             android:padding="0dp"
-            android:textOff="@string/fri"
-            android:textOn="@string/fri"
             android:textSize="16sp" />
 
         <ToggleButton
@@ -183,25 +184,11 @@
             android:layout_height="48dp"
             android:layout_weight="1"
             android:background="@drawable/toggle_underline"
-            android:checked="true"
+            android:checked="false"
             android:fontFamily="sans-serif-condensed"
             android:padding="0dp"
-            android:textOff="@string/sat"
-            android:textOn="@string/sat"
             android:textSize="16sp" />
-
-        <ToggleButton
-            android:id="@+id/SUN"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_weight="1"
-            android:background="@drawable/toggle_underline"
-            android:checked="true"
-            android:fontFamily="sans-serif-condensed"
-            android:padding="0dp"
-            android:textOff="@string/sun"
-            android:textOn="@string/sun"
-            android:textSize="16sp" />
+        
     </LinearLayout>
 
     <View

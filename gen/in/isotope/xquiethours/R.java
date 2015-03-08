@@ -35,53 +35,44 @@ public final class R {
         public static final int toggle_underline_normal=0x7f020003;
     }
     public static final class id {
-        public static final int FRI=0x7f0a0005;
-        public static final int MON=0x7f0a0001;
-        public static final int SAT=0x7f0a0006;
-        public static final int SUN=0x7f0a0007;
-        public static final int THU=0x7f0a0004;
-        public static final int TUE=0x7f0a0002;
-        public static final int WED=0x7f0a0003;
-        public static final int end_time=0x7f0a000a;
-        public static final int end_time_text=0x7f0a000b;
+        public static final int FRI=0x7f0a000a;
+        public static final int MON=0x7f0a0006;
+        public static final int SAT=0x7f0a000b;
+        public static final int SUN=0x7f0a0005;
+        public static final int THU=0x7f0a0009;
+        public static final int TUE=0x7f0a0007;
+        public static final int WED=0x7f0a0008;
+        public static final int end_time=0x7f0a0002;
+        public static final int end_time_text=0x7f0a0003;
         public static final int led=0x7f0a000f;
         public static final int notificationOpts=0x7f0a000c;
-        public static final int repeat_days=0x7f0a0000;
+        public static final int repeat_days=0x7f0a0004;
         public static final int sound=0x7f0a000e;
-        public static final int start_time=0x7f0a0008;
-        public static final int start_time_text=0x7f0a0009;
+        public static final int start_time=0x7f0a0000;
+        public static final int start_time_text=0x7f0a0001;
         public static final int vibe=0x7f0a000d;
     }
     public static final class layout {
         public static final int activity_credits=0x7f030000;
-        public static final int preference_days_of_week=0x7f030001;
-        public static final int preference_time_range=0x7f030002;
-        public static final int quiet_hour_preference=0x7f030003;
+        public static final int quiet_hour_preference=0x7f030001;
     }
     public static final class string {
         public static final int action_settings=0x7f080004;
-        public static final int additional_profile_summary=0x7f080015;
-        public static final int additional_profile_title=0x7f080014;
+        public static final int additional_profile_summary=0x7f08000e;
+        public static final int additional_profile_title=0x7f08000d;
         public static final int app_name=0x7f080003;
-        public static final int configuration=0x7f080016;
+        public static final int configuration=0x7f08000f;
         public static final int credits=0x7f08000a;
         public static final int enable_days_of_week_summary=0x7f08000c;
         public static final int enable_days_of_week_title=0x7f08000b;
         public static final int end_time_title=0x7f080001;
-        public static final int fri=0x7f080012;
         public static final int hello_world=0x7f080005;
-        public static final int mon=0x7f08000e;
         public static final int mute_sound=0x7f080006;
         public static final int no_led=0x7f080008;
         public static final int no_vibe=0x7f080007;
         public static final int notification_settings=0x7f080009;
         public static final int quiet_hours_title_preference=0x7f080002;
-        public static final int sat=0x7f080013;
         public static final int start_time_title=0x7f080000;
-        public static final int sun=0x7f08000d;
-        public static final int thu=0x7f080011;
-        public static final int tue=0x7f08000f;
-        public static final int wed=0x7f080010;
     }
     public static final class style {
         /** 

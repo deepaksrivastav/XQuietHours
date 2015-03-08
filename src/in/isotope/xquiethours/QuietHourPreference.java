@@ -1,5 +1,6 @@
 package in.isotope.xquiethours;
 
+import java.text.DateFormatSymbols;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -56,44 +57,68 @@ public class QuietHourPreference extends Preference implements
 
 		mStartTimeText = (TextView) view.findViewById(R.id.start_time_text);
 		mEndTimeText = (TextView) view.findViewById(R.id.end_time_text);
+		DateFormatSymbols symbols = new DateFormatSymbols();
+		String[] dayNames = symbols.getShortWeekdays();
 
 		ToggleButton sunday = (ToggleButton) view.findViewById(R.id.SUN);
+		sunday.setText(dayNames[1]);
+		sunday.setTextOn(dayNames[1]);
+		sunday.setTextOff(dayNames[1]);
+		
 		if (null != sunday && sunday instanceof ToggleButton) {
 			sunday.setOnClickListener(this);
 			buttons[0] = sunday;
 		}
 
 		ToggleButton monday = (ToggleButton) view.findViewById(R.id.MON);
+		monday.setText(dayNames[2]);
+		monday.setTextOn(dayNames[2]);
+		monday.setTextOff(dayNames[2]);
 		if (null != monday && monday instanceof ToggleButton) {
 			monday.setOnClickListener(this);
 			buttons[1] = monday;
 		}
 
 		ToggleButton tuesday = (ToggleButton) view.findViewById(R.id.TUE);
+		tuesday.setText(dayNames[3]);
+		tuesday.setTextOn(dayNames[3]);
+		tuesday.setTextOff(dayNames[3]);
 		if (null != tuesday && tuesday instanceof ToggleButton) {
 			tuesday.setOnClickListener(this);
 			buttons[2] = tuesday;
 		}
 
 		ToggleButton wednesday = (ToggleButton) view.findViewById(R.id.WED);
+		wednesday.setText(dayNames[4]);
+		wednesday.setTextOn(dayNames[4]);
+		wednesday.setTextOff(dayNames[4]);
 		if (null != wednesday && wednesday instanceof ToggleButton) {
 			wednesday.setOnClickListener(this);
 			buttons[3] = wednesday;
 		}
 
 		ToggleButton thursday = (ToggleButton) view.findViewById(R.id.THU);
+		thursday.setText(dayNames[5]);
+		thursday.setTextOn(dayNames[5]);
+		thursday.setTextOff(dayNames[5]);
 		if (null != thursday && thursday instanceof ToggleButton) {
 			thursday.setOnClickListener(this);
 			buttons[4] = thursday;
 		}
 
 		ToggleButton friday = (ToggleButton) view.findViewById(R.id.FRI);
+		friday.setText(dayNames[6]);
+		friday.setTextOn(dayNames[6]);
+		friday.setTextOff(dayNames[6]);
 		if (null != friday && friday instanceof ToggleButton) {
 			friday.setOnClickListener(this);
 			buttons[5] = friday;
 		}
 
 		ToggleButton saturday = (ToggleButton) view.findViewById(R.id.SAT);
+		saturday.setText(dayNames[7]);
+		saturday.setTextOn(dayNames[7]);
+		saturday.setTextOff(dayNames[7]);
 		if (null != saturday && saturday instanceof ToggleButton) {
 			saturday.setOnClickListener(this);
 			buttons[6] = saturday;
@@ -133,7 +158,7 @@ public class QuietHourPreference extends Preference implements
 		StringBuilder builder = new StringBuilder();
 		for (int i = 0; i < buttons.length; i++) {
 			if (buttons[i].isChecked()) {
-				builder.append(buttons[i].getText());
+				builder.append(i+1);
 				builder.append(";");
 			}
 		}
@@ -174,11 +199,11 @@ public class QuietHourPreference extends Preference implements
 			}
 
 			dayOfWeek = preference1.getString(QuietHoursHelper.KEY_DAYS_OF_WEEK);
-			for (int i = 0; i < buttons.length; i++) {
-				if (dayOfWeek.contains(buttons[i].getText())) {
-					buttons[i].setChecked(true);
-				} else {
-					buttons[i].setChecked(false);
+			String[] daysOfWeek = dayOfWeek.split(";");
+			for (String val : daysOfWeek) {
+				if(!val.isEmpty()){
+					Integer intVal = Integer.parseInt(val);
+					buttons[intVal-1].setChecked(true);
 				}
 			}
 

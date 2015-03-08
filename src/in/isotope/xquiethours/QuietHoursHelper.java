@@ -37,9 +37,6 @@ public final class QuietHoursHelper {
 	public static final String KEY_NO_LED = "noLed";
 	public static final String KEY_DAYS_OF_WEEK = "dayOfWeek";
 
-	private static final String[] DAYS_OF_WEEK = new String[] { "SUN", "MON",
-			"TUE", "WED", "THU", "FRI", "SAT" };
-
 	private XSharedPreferences preferences = null;
 
 	public QuietHoursHelper() {
@@ -75,7 +72,7 @@ public final class QuietHoursHelper {
 			// if days are enabled
 			// return false if quiet hours is not applicable on current day
 			if (!preferenceObj.getString(KEY_DAYS_OF_WEEK).contains(
-					DAYS_OF_WEEK[weekDay])) {
+					Integer.toString(weekDay))) {
 				return false;
 			}
 
