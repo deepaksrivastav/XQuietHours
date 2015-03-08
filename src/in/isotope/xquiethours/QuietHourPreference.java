@@ -164,7 +164,7 @@ public class QuietHourPreference extends Preference implements
 				daysOfWeekList.add(i);
 			}
 		}
-
+		
 		JSONObject preference1 = new JSONObject();
 		try {
 			preference1.put(QuietHoursHelper.KEY_QUIET_HOURS_TIME_RANGE, str);
