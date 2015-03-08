@@ -16,6 +16,7 @@
 
 package in.isotope.xquiethours;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -71,8 +72,9 @@ public final class QuietHoursHelper {
 					preference, ""));
 			// if days are enabled
 			// return false if quiet hours is not applicable on current day
-			if (!preferenceObj.getString(KEY_DAYS_OF_WEEK).contains(
-					Integer.toString(weekDay))) {
+			JSONArray dayOfWeek = preferenceObj
+					.getJSONArray(QuietHoursHelper.KEY_DAYS_OF_WEEK);
+			if (!dayOfWeek.toString().contains(Integer.toString(weekDay))) {
 				return false;
 			}
 

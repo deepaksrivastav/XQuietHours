@@ -1,9 +1,12 @@
 package in.isotope.xquiethours;
 
 import java.text.DateFormatSymbols;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -64,7 +67,7 @@ public class QuietHourPreference extends Preference implements
 		sunday.setText(dayNames[1]);
 		sunday.setTextOn(dayNames[1]);
 		sunday.setTextOff(dayNames[1]);
-		
+
 		if (null != sunday && sunday instanceof ToggleButton) {
 			sunday.setOnClickListener(this);
 			buttons[0] = sunday;
@@ -154,21 +157,22 @@ public class QuietHourPreference extends Preference implements
 
 	private void saveValue() {
 		String str = mStartTime + "|" + mEndTime;
-		
-		StringBuilder builder = new StringBuilder();
+
+		List<Integer> daysOfWeekList = new ArrayList<Integer>();
 		for (int i = 0; i < buttons.length; i++) {
 			if (buttons[i].isChecked()) {
-				builder.append(i+1);
-				builder.append(";");
+				daysOfWeekList.add(i);
 			}
 		}
 
 		JSONObject preference1 = new JSONObject();
 		try {
 			preference1.put(QuietHoursHelper.KEY_QUIET_HOURS_TIME_RANGE, str);
-			preference1.put(QuietHoursHelper.KEY_DAYS_OF_WEEK, builder.toString());
+			preference1.put(QuietHoursHelper.KEY_DAYS_OF_WEEK, new JSONArray(
+					daysOfWeekList));
 			preference1.put(QuietHoursHelper.KEY_NO_VIBE, noVibe.isChecked());
-			preference1.put(QuietHoursHelper.KEY_MUTE_SOUND, noSound.isChecked());
+			preference1.put(QuietHoursHelper.KEY_MUTE_SOUND,
+					noSound.isChecked());
 			preference1.put(QuietHoursHelper.KEY_NO_LED, noLED.isChecked());
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -179,11 +183,11 @@ public class QuietHourPreference extends Preference implements
 	private void updateSavedValue() {
 		try {
 			String currentTimeValue = "0|0";
-			String dayOfWeek = "";
 
 			JSONObject preference1 = new JSONObject(getPersistedString(""));
 
-			currentTimeValue = preference1.getString(QuietHoursHelper.KEY_QUIET_HOURS_TIME_RANGE);
+			currentTimeValue = preference1
+					.getString(QuietHoursHelper.KEY_QUIET_HOURS_TIME_RANGE);
 			String[] split = currentTimeValue.split("\\|");
 			if (split.length == 2) {
 				try {
@@ -198,18 +202,18 @@ public class QuietHourPreference extends Preference implements
 				mEndTime = 0;
 			}
 
-			dayOfWeek = preference1.getString(QuietHoursHelper.KEY_DAYS_OF_WEEK);
-			String[] daysOfWeek = dayOfWeek.split(";");
-			for (String val : daysOfWeek) {
-				if(!val.isEmpty()){
-					Integer intVal = Integer.parseInt(val);
-					buttons[intVal-1].setChecked(true);
-				}
+			JSONArray dayOfWeek = preference1
+					.getJSONArray(QuietHoursHelper.KEY_DAYS_OF_WEEK);
+			for (int i = 0; i < dayOfWeek.length(); i++) {
+				buttons[dayOfWeek.getInt(i)].setChecked(true);
 			}
 
-			noLED.setChecked(preference1.getBoolean(QuietHoursHelper.KEY_NO_LED));
-			noSound.setChecked(preference1.getBoolean(QuietHoursHelper.KEY_MUTE_SOUND));
-			noVibe.setChecked(preference1.getBoolean(QuietHoursHelper.KEY_NO_VIBE));
+			noLED.setChecked(preference1
+					.getBoolean(QuietHoursHelper.KEY_NO_LED));
+			noSound.setChecked(preference1
+					.getBoolean(QuietHoursHelper.KEY_MUTE_SOUND));
+			noVibe.setChecked(preference1
+					.getBoolean(QuietHoursHelper.KEY_NO_VIBE));
 
 		} catch (JSONException e) {
 			e.printStackTrace();

@@ -58,19 +58,18 @@ public final class R {
     }
     public static final class string {
         public static final int action_settings=0x7f080004;
-        public static final int additional_profile_summary=0x7f08000e;
-        public static final int additional_profile_title=0x7f08000d;
+        public static final int additional_profile_summary=0x7f08000d;
+        public static final int additional_profile_title=0x7f08000c;
         public static final int app_name=0x7f080003;
-        public static final int configuration=0x7f08000f;
-        public static final int credits=0x7f08000a;
-        public static final int enable_days_of_week_summary=0x7f08000c;
-        public static final int enable_days_of_week_title=0x7f08000b;
+        public static final int configuration=0x7f08000e;
+        public static final int credits=0x7f080009;
+        public static final int enable_days_of_week_summary=0x7f08000b;
+        public static final int enable_days_of_week_title=0x7f08000a;
         public static final int end_time_title=0x7f080001;
-        public static final int hello_world=0x7f080005;
-        public static final int mute_sound=0x7f080006;
-        public static final int no_led=0x7f080008;
-        public static final int no_vibe=0x7f080007;
-        public static final int notification_settings=0x7f080009;
+        public static final int mute_sound=0x7f080005;
+        public static final int no_led=0x7f080007;
+        public static final int no_vibe=0x7f080006;
+        public static final int notification_settings=0x7f080008;
         public static final int quiet_hours_title_preference=0x7f080002;
         public static final int start_time_title=0x7f080000;
     }
