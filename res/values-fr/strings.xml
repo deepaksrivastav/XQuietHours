@@ -6,20 +6,16 @@
     <string name="quiet_hours_title_preference">XQuietHours</string>
     <string name="app_name">XQuietHours</string>
     <string name="action_settings">Paramètres</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="mute_sound">Son coupé</string>
-    <string name="no_vibe">Vibreur désactivé</string>
-    <string name="no_led">LED désactivée</string>
+    <string name="mute_sound">Aucun son</string>
+    <string name="no_vibe">Aucune vibration</string>
+    <string name="no_led">Aucun voyant</string>
     <string name="notification_settings">Paramètres de notification</string>
     <string name="credits">Crédits</string>
     <string name="enable_days_of_week_title">Sélectionner les jours de la semaine ?</string>
     <string name="enable_days_of_week_summary">Sélectionner les jours où XQuietHours doit être activé</string>
-    <string name="sun">DIM</string>
-    <string name="mon">lUN</string>
-    <string name="tue">MAR</string>
-    <string name="wed">MER</string>
-    <string name="thu">JEU</string>
-    <string name="fri">VEN</string>
-    <string name="sat">SAM</string>
 
+
+    <string name="additional_profile_title">Heures silencieuses additionnelles</string>
+    <string name="additional_profile_summary">Définir heures silencieuses additionnelles</string>
+    <string name="configuration">Configuration</string>
 </resources>
