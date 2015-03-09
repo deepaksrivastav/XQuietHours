@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="start_time_title">Début</string>
+    <string name="end_time_title">Fin</string>
+    <string name="quiet_hours_title_preference">XQuietHours</string>
+    <string name="app_name">XQuietHours</string>
+    <string name="action_settings">Paramètres</string>
+    <string name="mute_sound">Aucun son</string>
+    <string name="no_vibe">Aucune vibration</string>
+    <string name="no_led">Aucun voyant</string>
+    <string name="notification_settings">Paramètres de notification</string>
+    <string name="credits">Crédits</string>
+    <string name="enable_days_of_week_title">Sélectionner les jours de la semaine ?</string>
+    <string name="enable_days_of_week_summary">Sélectionner les jours où XQuietHours doit être activé</string>
+
+
+    <string name="additional_profile_title">Heures silencieuses additionnelles</string>
+    <string name="additional_profile_summary">Définir heures silencieuses additionnelles</string>
+    <string name="configuration">Configuration</string>
+</resources>
